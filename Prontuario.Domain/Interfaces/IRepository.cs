@@ -9,10 +9,10 @@ namespace Prontuario.Domain.Interfaces
 
         void Update(T obj);
 
-        void Remove(int id);
+        //void Remove(int id);
 
         T Select(int id);
 
-        IList<T> SelectAll();
+        //IList<T> SelectAll();
     }
 }
