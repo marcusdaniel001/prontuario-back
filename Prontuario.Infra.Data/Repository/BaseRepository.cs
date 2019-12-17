@@ -1,10 +1,8 @@
 ﻿using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces;
 using Prontuario.Infra.Data.Context;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Prontuario.Infra.Data.Repository
 {
@@ -26,7 +24,7 @@ namespace Prontuario.Infra.Data.Repository
 
 		public void Delete(int id)
 		{
-			context.Set<T>().Remove(SelectById(id));
+			context.Set<T>().Remove(Select(id));
 			context.SaveChanges();
 		}
 
