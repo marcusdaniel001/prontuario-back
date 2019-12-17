@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prontuario.Domain", "Prontu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prontuario.Infra.Data", "Prontuario.Infra.Data\Prontuario.Infra.Data.csproj", "{FB14BE91-8DBD-4280-A127-A2FFD2347C11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prontuario.Service", "Prontuario.Service\Prontuario.Service.csproj", "{13804C95-070D-470E-B85E-57451E7DA7DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{FB14BE91-8DBD-4280-A127-A2FFD2347C11}.Release|x64.Build.0 = Release|Any CPU
 		{FB14BE91-8DBD-4280-A127-A2FFD2347C11}.Release|x86.ActiveCfg = Release|Any CPU
 		{FB14BE91-8DBD-4280-A127-A2FFD2347C11}.Release|x86.Build.0 = Release|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Debug|x64.Build.0 = Debug|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Debug|x86.Build.0 = Debug|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Release|x64.ActiveCfg = Release|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Release|x64.Build.0 = Release|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Release|x86.ActiveCfg = Release|Any CPU
+		{13804C95-070D-470E-B85E-57451E7DA7DF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
