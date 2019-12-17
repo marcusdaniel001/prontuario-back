@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application
+namespace Prontuario.Infra.Data
 {
     public class Class1
     {

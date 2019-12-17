@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure
+namespace Prontuario.Domain
 {
     public class Class1
     {
