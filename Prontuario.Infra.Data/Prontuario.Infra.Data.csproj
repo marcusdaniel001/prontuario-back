@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Context\" />
+    <ProjectReference Include="..\Prontuario.Domain\Prontuario.Domain.csproj" />
   </ItemGroup>
 
 </Project>

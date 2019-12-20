@@ -9,19 +9,19 @@ namespace Prontuario.Infra.Data.Context
 {
 	public class PostgresContext : DbContext
 	{
-		public DbSet<User> User { get; set; }
+		public DbSet<Usuario> Usuario { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			if (!optionsBuilder.IsConfigured)
-				optionsBuilder.UseNpgsql("Server=[SERVIDOR];Port=[PORTA];Database=modelo;Uid=[USUARIO];Pwd=[SENHA]");
+				optionsBuilder.UseNpgsql("Server=localhost;Port=5432;user id=postgres; password = 123; database = prontuariolegal");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.Entity<User>(new UserMap().Configure);
+			modelBuilder.Entity<Usuario>(new UsuarioMap().Configure);
 		}
 	}
 }
