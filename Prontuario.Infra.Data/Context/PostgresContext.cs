@@ -10,6 +10,8 @@ namespace Prontuario.Infra.Data.Context
 	public class PostgresContext : DbContext
 	{
 		public DbSet<Usuario> Usuario { get; set; }
+		public DbSet<Telefone> Telefone { get; set; }
+		public DbSet<Endereco> Endereco { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Prontuario.Infra.Data\Prontuario.Infra.Data.csproj" />
+  </ItemGroup>
+
 </Project>
