@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Prontuario.Infra.Data.Context;
@@ -9,9 +10,10 @@ using Prontuario.Infra.Data.Context;
 namespace Prontuario.Infra.Data.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    partial class PostgresContextModelSnapshot : ModelSnapshot
+    [Migration("20191223161654_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,12 +70,7 @@ namespace Prontuario.Infra.Data.Migrations
                     b.Property<string>("Fixo")
                         .HasColumnType("text");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Telefone");
                 });
@@ -118,20 +115,17 @@ namespace Prontuario.Infra.Data.Migrations
                         .HasColumnName("Sexo")
                         .HasColumnType("text");
 
+                    b.Property<int>("TelefoneId")
+                        .HasColumnName("TelefoneId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EnderecoId");
 
-                    b.ToTable("Usuario");
-                });
+                    b.HasIndex("TelefoneId");
 
-            modelBuilder.Entity("Prontuario.Domain.Entities.Telefone", b =>
-                {
-                    b.HasOne("Prontuario.Domain.Entities.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("Prontuario.Domain.Entities.Usuario", b =>
@@ -139,6 +133,12 @@ namespace Prontuario.Infra.Data.Migrations
                     b.HasOne("Prontuario.Domain.Entities.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Prontuario.Domain.Entities.Telefone", "Telefone")
+                        .WithMany()
+                        .HasForeignKey("TelefoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

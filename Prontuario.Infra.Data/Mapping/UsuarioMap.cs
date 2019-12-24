@@ -40,10 +40,6 @@ namespace Prontuario.Infra.Data.Mapping
 				.IsRequired()
 				.HasColumnName("EnderecoId");
 
-			builder.Property(c => c.TelefoneId)
-				.IsRequired()
-				.HasColumnName("TelefoneId");
-
 		}
 	}
 }

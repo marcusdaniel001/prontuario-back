@@ -10,8 +10,8 @@ using Prontuario.Infra.Data.Context;
 namespace Prontuario.Infra.Data.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    [Migration("20191220025921_Initial")]
-    partial class Initial
+    [Migration("20191224153333_adding-foreignkey-usuario-in-telefone")]
+    partial class addingforeignkeyusuariointelefone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,7 +70,12 @@ namespace Prontuario.Infra.Data.Migrations
                     b.Property<string>("Fixo")
                         .HasColumnType("text");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Telefone");
                 });
@@ -115,17 +120,20 @@ namespace Prontuario.Infra.Data.Migrations
                         .HasColumnName("Sexo")
                         .HasColumnType("text");
 
-                    b.Property<int>("TelefoneId")
-                        .HasColumnName("TelefoneId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EnderecoId");
 
-                    b.HasIndex("TelefoneId");
-
                     b.ToTable("Usuario");
+                });
+
+            modelBuilder.Entity("Prontuario.Domain.Entities.Telefone", b =>
+                {
+                    b.HasOne("Prontuario.Domain.Entities.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Prontuario.Domain.Entities.Usuario", b =>
@@ -133,12 +141,6 @@ namespace Prontuario.Infra.Data.Migrations
                     b.HasOne("Prontuario.Domain.Entities.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Prontuario.Domain.Entities.Telefone", "Telefone")
-                        .WithMany()
-                        .HasForeignKey("TelefoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
