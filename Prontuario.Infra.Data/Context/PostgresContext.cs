@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Prontuario.Domain.Entities;
 using Prontuario.Infra.Data.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Prontuario.Infra.Data.Context
 {
 	public class PostgresContext : DbContext
 	{
-		public DbSet<Usuario> Usuario { get; set; }
-		public DbSet<Telefone> Telefone { get; set; }
-		public DbSet<Endereco> Endereco { get; set; }
-		public DbSet<Paciente> Paciente { get; set; }
-		public DbSet<PlanoSaude> PlanoSaude { get; set; }
+		public DbSet<Usuario> Usuarios { get; set; }
+		public DbSet<Telefone> Telefones { get; set; }
+		public DbSet<Endereco> Enderecos { get; set; }
+		public DbSet<Paciente> Pacientes { get; set; }
+		public DbSet<PlanoSaude> PlanosSaude { get; set; }
+		public DbSet<LocalAtendimento> LocalAtendimentos { get; set; }
+		public DbSet<Secretaria> Secretarias { get; set; }
+		public DbSet<Faturista> Faturistas { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

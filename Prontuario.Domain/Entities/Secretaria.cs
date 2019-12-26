@@ -1,8 +1,8 @@
 ﻿namespace Prontuario.Domain.Entities
 {
-    public class Telefone : BaseEntity
+    public class Secretaria : BaseEntity
     {
-        public string Numero { get; set; }
+        public string Senha { get; set; }
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
         public int LocalAtendimentoId { get; set; }

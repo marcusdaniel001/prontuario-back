@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Prontuario.Infra.Data.Context;
@@ -9,9 +10,10 @@ using Prontuario.Infra.Data.Context;
 namespace Prontuario.Infra.Data.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    partial class PostgresContextModelSnapshot : ModelSnapshot
+    [Migration("20191226154629_AlteracoesNasRelacoes")]
+    partial class AlteracoesNasRelacoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,6 +64,9 @@ namespace Prontuario.Infra.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("PlanoSaudeId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Senha")
                         .HasColumnType("text");
 
@@ -69,6 +74,8 @@ namespace Prontuario.Infra.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PlanoSaudeId");
 
                     b.HasIndex("UsuarioId");
 
@@ -102,6 +109,9 @@ namespace Prontuario.Infra.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("PlanoSaudeId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Senha")
                         .HasColumnType("text");
 
@@ -109,6 +119,8 @@ namespace Prontuario.Infra.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PlanoSaudeId");
 
                     b.HasIndex("UsuarioId");
 
@@ -143,6 +155,9 @@ namespace Prontuario.Infra.Data.Migrations
                     b.Property<int>("LocalAtendimentoId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("PlanoSaudeId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Senha")
                         .HasColumnType("text");
 
@@ -152,6 +167,8 @@ namespace Prontuario.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("LocalAtendimentoId");
+
+                    b.HasIndex("PlanoSaudeId");
 
                     b.HasIndex("UsuarioId");
 
@@ -218,9 +235,6 @@ namespace Prontuario.Infra.Data.Migrations
                         .HasColumnName("NomeMae")
                         .HasColumnType("text");
 
-                    b.Property<int>("PlanoSaudeId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Sexo")
                         .IsRequired()
                         .HasColumnName("Sexo")
@@ -230,13 +244,17 @@ namespace Prontuario.Infra.Data.Migrations
 
                     b.HasIndex("EnderecoId");
 
-                    b.HasIndex("PlanoSaudeId");
-
                     b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("Prontuario.Domain.Entities.Faturista", b =>
                 {
+                    b.HasOne("Prontuario.Domain.Entities.PlanoSaude", "PlanoSaude")
+                        .WithMany()
+                        .HasForeignKey("PlanoSaudeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Prontuario.Domain.Entities.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
@@ -255,6 +273,12 @@ namespace Prontuario.Infra.Data.Migrations
 
             modelBuilder.Entity("Prontuario.Domain.Entities.Paciente", b =>
                 {
+                    b.HasOne("Prontuario.Domain.Entities.PlanoSaude", "PlanoSaude")
+                        .WithMany()
+                        .HasForeignKey("PlanoSaudeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Prontuario.Domain.Entities.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
@@ -267,6 +291,12 @@ namespace Prontuario.Infra.Data.Migrations
                     b.HasOne("Prontuario.Domain.Entities.LocalAtendimento", "LocalAtendimento")
                         .WithMany()
                         .HasForeignKey("LocalAtendimentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Prontuario.Domain.Entities.PlanoSaude", "PlanoSaude")
+                        .WithMany()
+                        .HasForeignKey("PlanoSaudeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -297,12 +327,6 @@ namespace Prontuario.Infra.Data.Migrations
                     b.HasOne("Prontuario.Domain.Entities.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Prontuario.Domain.Entities.PlanoSaude", "PlanoSaude")
-                        .WithMany()
-                        .HasForeignKey("PlanoSaudeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
