@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Prontuario.Infra.Data.Context;
@@ -9,51 +10,16 @@ using Prontuario.Infra.Data.Context;
 namespace Prontuario.Infra.Data.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    partial class PostgresContextModelSnapshot : ModelSnapshot
+    [Migration("20191226162703_InsercaoNoContexto")]
+    partial class InsercaoNoContexto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            modelBuilder.Entity("Prontuario.Domain.Entities.Agenda", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("Fim")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("Incio")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("MedicoId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PacienteId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Presintomas")
-                        .HasColumnType("text");
-
-                    b.Property<int>("SecretariaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MedicoId");
-
-                    b.HasIndex("PacienteId");
-
-                    b.HasIndex("SecretariaId");
-
-                    b.ToTable("Agenda");
-                });
 
             modelBuilder.Entity("Prontuario.Domain.Entities.Endereco", b =>
                 {
@@ -186,12 +152,7 @@ namespace Prontuario.Infra.Data.Migrations
                     b.Property<string>("Senha")
                         .HasColumnType("text");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Medicos");
                 });
@@ -337,27 +298,6 @@ namespace Prontuario.Infra.Data.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("Prontuario.Domain.Entities.Agenda", b =>
-                {
-                    b.HasOne("Prontuario.Domain.Entities.Medico", "Medico")
-                        .WithMany()
-                        .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Prontuario.Domain.Entities.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Prontuario.Domain.Entities.Secretaria", "Secretaria")
-                        .WithMany()
-                        .HasForeignKey("SecretariaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Prontuario.Domain.Entities.Faturista", b =>
                 {
                     b.HasOne("Prontuario.Domain.Entities.Usuario", "Usuario")
@@ -396,15 +336,6 @@ namespace Prontuario.Infra.Data.Migrations
                     b.HasOne("Prontuario.Domain.Entities.Medico", "Medico")
                         .WithMany()
                         .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Prontuario.Domain.Entities.Medico", b =>
-                {
-                    b.HasOne("Prontuario.Domain.Entities.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

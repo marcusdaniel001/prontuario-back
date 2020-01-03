@@ -14,6 +14,10 @@ namespace Prontuario.Infra.Data.Context
 		public DbSet<LocalAtendimento> LocalAtendimentos { get; set; }
 		public DbSet<Secretaria> Secretarias { get; set; }
 		public DbSet<Faturista> Faturistas { get; set; }
+		public DbSet<Medico> Medicos { get; set; }
+		public DbSet<InscricaoConselhoMedicina> InscricaoConselhosMedicina { get; set; }
+		public DbSet<LocalAtendimentoMedico> LocalAtendimentoMedico { get; set; }
+		public DbSet<Agenda> Agenda { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

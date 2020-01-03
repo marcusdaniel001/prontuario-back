@@ -8,7 +8,7 @@ namespace Prontuario.Infra.Data.Mapping
 	{
 		public void Configure(EntityTypeBuilder<Usuario> builder)
 		{
-			builder.ToTable("Usuario");
+			builder.ToTable("Usuarios");
 
 			builder.HasKey(c => c.Id);
 
@@ -40,6 +40,9 @@ namespace Prontuario.Infra.Data.Mapping
 				.IsRequired()
 				.HasColumnName("EnderecoId");
 
+			builder.Property(c => c.PlanoSaudeId)
+				.IsRequired()
+				.HasColumnName("PlanoSaudeId");
 		}
 	}
 }
