@@ -22,7 +22,7 @@ namespace Prontuario.Infra.Data.Context
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			if (!optionsBuilder.IsConfigured)
-				optionsBuilder.UseNpgsql("Server=localhost;Port=5433;user id=postgres; password = 123; database = prontuariolegal");
+				optionsBuilder.UseNpgsql("Server=localhost;Port=5432;user id=postgres; password = 123; database = prontuariolegal");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

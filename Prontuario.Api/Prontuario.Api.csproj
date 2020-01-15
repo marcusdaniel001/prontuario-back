@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Prontuario.Infra.Data\Prontuario.Infra.Data.csproj" />
+    <ProjectReference Include="..\Prontuario.Service\Prontuario.Service.csproj" />
   </ItemGroup>
 
 </Project>
