@@ -1,4 +1,4 @@
-﻿using Prontuario.Domain.Entities;
+using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces;
 using Prontuario.Infra.Data.Repository;
 using System;
