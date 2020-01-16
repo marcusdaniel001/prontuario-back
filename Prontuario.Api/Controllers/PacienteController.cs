@@ -23,6 +23,7 @@ namespace Prontuario.Api.Controllers
             }
             catch (ArgumentNullException ex)
             {
+                LogService.Informar<Program>(exception.Message, exception.StackTrace);
                 return NotFound(ex);
             }
             catch (Exception ex)

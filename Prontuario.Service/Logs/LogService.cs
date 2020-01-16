@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Prontuario.Service.Logs
 {
-    class LogService
+    public class LogService
     {
+        public static void Informar<T>(string mensagem, string stackTrace)
+        {
+            new LoggerService<T>().Informar(mensagem, stackTrace);
+        }
     }
 }
