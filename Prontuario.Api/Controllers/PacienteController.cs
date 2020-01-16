@@ -16,6 +16,7 @@ namespace Prontuario.Api.Controllers
         {
             try
             {
+
                 service.Post<Paciente>(item);
 
                 return new ObjectResult(item.Id);
@@ -68,6 +69,7 @@ namespace Prontuario.Api.Controllers
             }
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             try
@@ -80,6 +82,7 @@ namespace Prontuario.Api.Controllers
             }
         }
 
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             try

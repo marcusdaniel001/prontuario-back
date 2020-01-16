@@ -7,7 +7,7 @@ namespace Prontuario.Domain.Entities
 	public class Usuario : BaseEntity
 	{
 		public string Nome { get; set; }
-		public DateTime DataNascimento { get; set; }
+		public string DataNascimento { get; set; }
 		public string Sexo { get; set; }
 		public string NomeMae { get; set; }
 		public string Cpf { get; set; }

@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Prontuario.Api.Controllers;
 using Prontuario.Infra.Data.Context;
 
 namespace Prontuario.Api
@@ -39,20 +40,7 @@ namespace Prontuario.Api
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("PolicyOrigin",
-                    builder => builder.WithOrigins(
-                        "*"
-                    )
-                    .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
-                    .AllowAnyHeader()
-                    .AllowCredentials()
-                );
-            });
-
             services.AddSingleton<IConfiguration>(_ => Configuration);
-            
 
             services.Configure<GzipCompressionProviderOptions>(options =>
                 options.Level = CompressionLevel.Optimal
@@ -80,14 +68,16 @@ namespace Prontuario.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseRouting();
+
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
+
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

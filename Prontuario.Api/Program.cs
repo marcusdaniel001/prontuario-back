@@ -14,7 +14,6 @@ namespace Prontuario.Api
     {
         private static readonly string Url = "http://127.0.0.1:5000";
 
-        /// <inheritdoc />
         public static void Main(string[] args)
         {
 
