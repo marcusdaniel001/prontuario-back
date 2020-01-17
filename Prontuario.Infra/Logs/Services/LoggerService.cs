@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
+using Prontuario.Domain.Interfaces;
 
 namespace Prontuario.Infra.Logs.Services
 {
@@ -15,7 +17,6 @@ namespace Prontuario.Infra.Logs.Services
 
         public void Informar(string mensagem, string stackTrace)
         {
-            _loggerFactory.AddConsole(LogLevel.Trace);
             var logger = _loggerFactory.CreateLogger<T>();
             logger.LogInformation("---------------- Mensagem ----------------");
             logger.LogInformation(mensagem);

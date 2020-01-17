@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Prontuario.Domain.Entities;
+using Prontuario.Domain.Interfaces;
 using Prontuario.Service.Services;
 
 namespace Prontuario.Api.Controllers
@@ -10,6 +12,12 @@ namespace Prontuario.Api.Controllers
     public class PacienteController : Controller
     {
         private BaseService<Paciente> service = new BaseService<Paciente>();
+        private readonly ILoggerService _loggerService;
+
+        public PacienteController(ILoggerService loggerService)
+        {
+            _loggerService = loggerService;
+        }
 
         [HttpPost("inserir")]
         public IActionResult Post([FromBody] Paciente item)
@@ -23,12 +31,15 @@ namespace Prontuario.Api.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                LogService.Informar<Program>(exception.Message, exception.StackTrace);
-                return NotFound(ex);
+                _loggerService.Informar(ex.Message, ex.StackTrace);
+
+                return NotFound();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                _loggerService.Informar(ex.Message, ex.StackTrace);
+
+                return BadRequest();
             }
         }
 
