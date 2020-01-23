@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces;
+using Prontuario.Domain.Interfaces.Services;
 using Prontuario.Service.Services;
 
 namespace Prontuario.Api.Controllers
@@ -12,32 +13,41 @@ namespace Prontuario.Api.Controllers
     public class PacienteController : Controller
     {
         private BaseService<Paciente> service = new BaseService<Paciente>();
-        private readonly ILoggerService _loggerService;
+        private readonly IPacienteService _pacienteService;
 
-        public PacienteController(ILoggerService loggerService)
+        public PacienteController(IPacienteService pacienteService)
         {
-            _loggerService = loggerService;
+            _pacienteService = pacienteService;
         }
 
         [HttpPost("inserir")]
-        public IActionResult Post([FromBody] Paciente item)
+        public IActionResult Post([FromBody] Paciente paciente)
         {
             try
             {
+                /// CONVERTER A DATA QUE ENTRA PARA DATE TIME <3
+                _pacienteService.Criar(paciente);
+                //service.Post<Paciente>(paciente);
 
-                service.Post<Paciente>(item);
-
-                return new ObjectResult(item.Id);
+                return new ObjectResult(paciente.Id);
             }
             catch (ArgumentNullException ex)
             {
-                _loggerService.Informar(ex.Message, ex.StackTrace);
+                Console.WriteLine("---------------- Mensagem ----------------");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("");
+                Console.WriteLine("---------------- StackTrace ----------------");
+                Console.WriteLine(ex.StackTrace);
 
                 return NotFound();
             }
             catch (Exception ex)
             {
-                _loggerService.Informar(ex.Message, ex.StackTrace);
+                Console.WriteLine("---------------- Mensagem ----------------");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("");
+                Console.WriteLine("---------------- StackTrace ----------------");
+                Console.WriteLine(ex.StackTrace);
 
                 return BadRequest();
             }

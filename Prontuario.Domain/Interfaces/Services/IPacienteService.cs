@@ -7,5 +7,6 @@ namespace Prontuario.Domain.Interfaces.Services
 {
     public interface IPacienteService
     {
+        public void Criar(Paciente paciente);
     }
 }

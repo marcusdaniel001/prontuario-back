@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Prontuario.Api.Controllers;
 using Prontuario.Infra.Data.Context;
+using Prontuario.Service.Extensions;
 
 namespace Prontuario.Api
 {
@@ -41,6 +42,7 @@ namespace Prontuario.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(_ => Configuration);
+            services.ApiDependencias();
 
             services.Configure<GzipCompressionProviderOptions>(options =>
                 options.Level = CompressionLevel.Optimal

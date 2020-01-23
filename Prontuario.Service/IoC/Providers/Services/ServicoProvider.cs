@@ -8,11 +8,11 @@ using Prontuario.Service.Services;
 
 namespace Prontuario.Service.IoC.Providers.Services
 {
-    public static class ServiceProvider
+    public static class ServicoProvider
     {
         public static void Registro(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<ILoggerService, ILoggerService>();
+            
             serviceCollection.AddScoped<IPacienteService, PacienteService>();
         }
     }
