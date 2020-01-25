@@ -34,9 +34,12 @@ namespace Prontuario.Api.Controllers
                 var dataNascimento = DataAdapter.ParseDateTime(pacienteBody.Usuario.DataNascimentoString);
                 pacienteBody.Usuario.DataNascimento = dataNascimento;
 
-                _pacienteService.Criar(pacienteBody);
+                var inserido = _pacienteService.Criar(pacienteBody);
 
-                return new ObjectResult(paciente.Id);
+                if (inserido)
+                    return new OkResult();
+                
+                return new NoContentResult();
             }
             catch (ArgumentNullException ex)
             {

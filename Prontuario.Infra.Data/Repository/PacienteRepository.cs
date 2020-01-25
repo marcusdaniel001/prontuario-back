@@ -13,19 +13,18 @@ namespace Prontuario.Infra.Data.Repository
 
         public Paciente BuscarPacientePorUsuarioId(int usuarioId)
         {
-            using (var context = new PostgresContext())
-            {
-                var query = from p in context.Pacientes
-                    where p.Usuario.Id == usuarioId
-                            select new Paciente
-                            {
-                                Id = p.Id,
-                                Senha = p.Senha,
-                                Usuario = p.Usuario
-                            };
+            using var context = new PostgresContext();
 
-                return query.FirstOrDefault();
-            }
+            var query = from p in context.Pacientes
+                where p.Usuario.Id == usuarioId
+                select new Paciente
+                {
+                    Id = p.Id,
+                    Senha = p.Senha,
+                    Usuario = p.Usuario
+                };
+
+            return query.FirstOrDefault();
         }
     }
 }

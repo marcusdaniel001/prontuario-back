@@ -19,7 +19,7 @@ namespace Prontuario.Service.Services
             _pacienteRepository = pacienteRepository;
         }
 
-        public void Criar(Paciente paciente)
+        public bool Criar(Paciente paciente)
         {
 
             if(paciente.Usuario.Id != 0)
@@ -27,11 +27,12 @@ namespace Prontuario.Service.Services
                 var pacienteExistente = _pacienteRepository.BuscarPacientePorUsuarioId(paciente.Usuario.Id);
 
                 // Se houver paciente para este Id de usuario eu preciso retornar
-                if (pacienteExistente != null) return;
+                if (pacienteExistente != null) return false;
 
             }
 
             repositoryPaciente.Insert(paciente);
+            return true;
         }
     }
 }
