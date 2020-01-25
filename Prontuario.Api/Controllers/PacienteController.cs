@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces;
 using Prontuario.Domain.Interfaces.Services;
+using Prontuario.Service.Adapters;
 using Prontuario.Service.Services;
 
 namespace Prontuario.Api.Controllers
@@ -25,9 +27,11 @@ namespace Prontuario.Api.Controllers
         {
             try
             {
-                /// CONVERTER A DATA QUE ENTRA PARA DATE TIME <3
-                _pacienteService.Criar(paciente);
-                //service.Post<Paciente>(paciente);
+                var pacienteBody = paciente;
+                var dataNascimento = DataAdapter.ParseDate(pacienteBody.Usuario.DataNascimento.ToString(CultureInfo.InvariantCulture));
+                pacienteBody.Usuario.DataNascimento = dataNascimento;
+
+                _pacienteService.Criar(pacienteBody);
 
                 return new ObjectResult(paciente.Id);
             }
