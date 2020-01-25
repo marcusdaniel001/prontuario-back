@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Prontuario.Domain.Entities;
+using Prontuario.Domain.Interfaces.Repositories;
 using Prontuario.Domain.Interfaces.Services;
 using Prontuario.Infra.Data.Repository;
 
@@ -11,19 +12,23 @@ namespace Prontuario.Service.Services
     {
         private BaseRepository<Usuario> repositoryUsuario = new BaseRepository<Usuario>();
         private BaseRepository<Paciente> repositoryPaciente = new BaseRepository<Paciente>();
+        private readonly IPacienteRepository _pacienteRepository;
+
+        public PacienteService(IPacienteRepository pacienteRepository)
+        {
+            _pacienteRepository = pacienteRepository;
+        }
 
         public void Criar(Paciente paciente)
         {
-            var usuarioExistente = repositoryUsuario.Select(paciente.Usuario.Id);
 
-            if(usuarioExistente != null && usuarioExistente.Id != 0)
+            if(paciente.Usuario.Id != 0)
             {
-                paciente = new Paciente
-                {
-                    Id = paciente.Id,
-                    Senha = paciente.Senha,
-                    UsuarioId = usuarioExistente.Id
-                };
+                var pacienteExistente = _pacienteRepository.BuscarPacientePorUsuarioId(paciente.Usuario.Id);
+
+                // Se houver paciente para este Id de usuario eu preciso retornar
+                if (pacienteExistente != null) return;
+
             }
 
             repositoryPaciente.Insert(paciente);

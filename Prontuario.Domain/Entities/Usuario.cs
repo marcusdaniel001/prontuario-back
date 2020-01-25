@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Prontuario.Domain.Entities
 {
@@ -8,6 +8,8 @@ namespace Prontuario.Domain.Entities
 	{
 		public string Nome { get; set; }
 		public DateTime DataNascimento { get; set; }
+		[NotMapped]
+        public string DataNascimentoString { get; set; }
 		public string Sexo { get; set; }
 		public string NomeMae { get; set; }
 		public string Cpf { get; set; }

@@ -2,6 +2,8 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Fluent;
 using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces;
 using Prontuario.Domain.Interfaces.Services;
@@ -14,6 +16,7 @@ namespace Prontuario.Api.Controllers
     [Route("api/paciente")]
     public class PacienteController : Controller
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private BaseService<Paciente> service = new BaseService<Paciente>();
         private readonly IPacienteService _pacienteService;
 
@@ -28,7 +31,7 @@ namespace Prontuario.Api.Controllers
             try
             {
                 var pacienteBody = paciente;
-                var dataNascimento = DataAdapter.ParseDate(pacienteBody.Usuario.DataNascimento.ToString(CultureInfo.InvariantCulture));
+                var dataNascimento = DataAdapter.ParseDateTime(pacienteBody.Usuario.DataNascimentoString);
                 pacienteBody.Usuario.DataNascimento = dataNascimento;
 
                 _pacienteService.Criar(pacienteBody);

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Prontuario.Service.IoC.Providers.Repositories;
 using Prontuario.Service.IoC.Providers.Services;
 
 namespace Prontuario.Service.Extensions
@@ -13,6 +10,7 @@ namespace Prontuario.Service.Extensions
         {
             #region Api
             ServicoProvider.Registro(serviceCollection);
+            RepositoryProvider.Registro(serviceCollection);
             #endregion
         }
     }
