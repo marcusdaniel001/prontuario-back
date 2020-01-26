@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces.Repositories;
 using Prontuario.Infra.Data.Context;

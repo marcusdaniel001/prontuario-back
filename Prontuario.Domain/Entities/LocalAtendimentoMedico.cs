@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Prontuario.Domain.Entities
+﻿namespace Prontuario.Domain.Entities
 {
     public class LocalAtendimentoMedico : BaseEntity
     {

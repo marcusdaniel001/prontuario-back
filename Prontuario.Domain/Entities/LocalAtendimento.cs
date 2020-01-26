@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Prontuario.Domain.Entities
+﻿namespace Prontuario.Domain.Entities
 {
     public class LocalAtendimento : BaseEntity
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Prontuario.Domain.Interfaces
+﻿namespace Prontuario.Domain.Interfaces
 {
     public interface ILoggerService
     {

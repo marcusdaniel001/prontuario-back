@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using NLog;
-using NLog.Fluent;
 using Prontuario.Domain.Entities;
-using Prontuario.Domain.Interfaces;
 using Prontuario.Domain.Interfaces.Services;
 using Prontuario.Service.Adapters;
 using Prontuario.Service.Services;
