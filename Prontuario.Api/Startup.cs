@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Prontuario.Api.Controllers;
 using Prontuario.Infra.Data.Context;
 using Prontuario.Service.Extensions;
@@ -22,8 +23,10 @@ namespace Prontuario.Api
 {
     public class Startup
     {
-        public Startup(IHostEnvironment env)
+        public Startup(IHostEnvironment env, ILoggingBuilder loggerFactory)
         {
+            loggerFactory.AddConsole().AddDebug();
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)

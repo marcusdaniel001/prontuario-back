@@ -2,7 +2,6 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NLog;
 using NLog.Fluent;
 using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces;
@@ -12,17 +11,19 @@ using Prontuario.Service.Services;
 
 namespace Prontuario.Api.Controllers
 {
+
     [Produces("application/json")]
     [Route("api/paciente")]
     public class PacienteController : Controller
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private BaseService<Paciente> service = new BaseService<Paciente>();
         private readonly IPacienteService _pacienteService;
+        private readonly ILogger _logger;
 
-        public PacienteController(IPacienteService pacienteService)
+        public PacienteController(IPacienteService pacienteService, ILogger<PacienteController> logger)
         {
             _pacienteService = pacienteService;
+            _logger = logger;
         }
 
         [HttpPost("inserir")]
@@ -43,6 +44,7 @@ namespace Prontuario.Api.Controllers
             }
             catch (ArgumentNullException ex)
             {
+                _logger.LogInformation(ex.Message);
                 Console.WriteLine("---------------- Mensagem ----------------");
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("");
