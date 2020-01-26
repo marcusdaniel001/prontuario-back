@@ -16,7 +16,6 @@ namespace Prontuario.Api.Controllers
     [Route("api/paciente")]
     public class PacienteController : Controller
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private BaseService<Paciente> service = new BaseService<Paciente>();
         private readonly IPacienteService _pacienteService;
 
@@ -25,6 +24,11 @@ namespace Prontuario.Api.Controllers
             _pacienteService = pacienteService;
         }
 
+        /// <summary>
+        /// Metodo utilizado para inserir um paciente novo
+        /// </summary>
+        /// <param name="paciente">Objeto paciente</param>
+        /// <returns>Ok ou NoContent</returns>
         [HttpPost("inserir")]
         public IActionResult Post([FromBody] Paciente paciente)
         {
@@ -63,14 +67,19 @@ namespace Prontuario.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Metodo utilizado para atualizar um Paciente
+        /// </summary>
+        /// <param name="paciente"></param>
+        /// <returns>Novo objeto modificado</returns>
         [HttpPost("atualizar")]
-        public IActionResult Put([FromBody] Paciente item)
+        public IActionResult Put([FromBody] Paciente paciente)
         {
             try
             {
-                service.Put<Paciente>(item);
+                service.Put<Paciente>(paciente);
 
-                return new ObjectResult(item);
+                return new ObjectResult(paciente);
             }
             catch (ArgumentNullException ex)
             {
@@ -82,6 +91,11 @@ namespace Prontuario.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Metodo utilizado para Deletar Pacientes
+        /// </summary>
+        /// <param name="id">Id do paciente a ser deletado</param>
+        /// <returns>No content caso excluir</returns>
         [HttpDelete("deletar/{id}")]
         public IActionResult Delete(int id)
         {
@@ -101,12 +115,23 @@ namespace Prontuario.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Metodo utilizado para buscar todos os pacientes
+        /// </summary>
+        /// <returns>Lista de Pacientes com suas dependencias</returns>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult BuscarTodosPacientes()
         {
             try
             {
-                return new ObjectResult(service.Get());
+                var pacientes = _pacienteService.BuscarTodosPacientes();
+
+                if (pacientes != null)
+                {
+                    return new JsonResult(pacientes);
+                }
+
+                return new NoContentResult();
             }
             catch (Exception ex)
             {
@@ -114,12 +139,21 @@ namespace Prontuario.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Metodo responsavel por buscar o paciente pelo Id do mesmo
+        /// </summary>
+        /// <param name="id">Id do paciente</param>
+        /// <returns>Entidade de paciente encontrada no banco</returns>
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult BuscarPacientePorId(int id)
         {
             try
             {
-                return new ObjectResult(service.Get(id));
+                var paciente = _pacienteService.BuscarPacientePorId(id);
+                if(paciente.Id == 0) return new NoContentResult();
+
+                return new JsonResult(paciente);
+
             }
             catch (ArgumentException ex)
             {

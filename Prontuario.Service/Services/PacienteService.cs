@@ -21,18 +21,40 @@ namespace Prontuario.Service.Services
 
         public bool Criar(Paciente paciente)
         {
+            var pacienteAuxiliar = new Paciente();
 
             if(paciente.Usuario.Id != 0)
             {
                 var pacienteExistente = _pacienteRepository.BuscarPacientePorUsuarioId(paciente.Usuario.Id);
 
-                // Se houver paciente para este Id de usuario eu preciso retornar
-                if (pacienteExistente != null) return false;
+                // Se houver paciente para este Id de usuario eu preciso retornar e nao fazer nada
+                if (pacienteExistente != null)
+                {
+                    return false;
+                }
+                else
+                {
+                    pacienteAuxiliar.Senha = paciente.Senha;
+                    pacienteAuxiliar.UsuarioId = paciente.Usuario.Id;
+
+                    repositoryPaciente.Insert(pacienteAuxiliar);
+                    return true;
+                }
 
             }
 
             repositoryPaciente.Insert(paciente);
             return true;
+        }
+
+        public IEnumerable<Paciente> BuscarTodosPacientes()
+        {
+            return _pacienteRepository.BuscarTodosPacientes();
+        }
+
+        public Paciente BuscarPacientePorId(int id)
+        {
+            return _pacienteRepository.BuscarPacientePorId(id);
         }
     }
 }
