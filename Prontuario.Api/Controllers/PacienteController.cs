@@ -25,7 +25,7 @@ namespace Prontuario.Api.Controllers
         /// <param name="paciente">Objeto paciente</param>
         /// <returns>Ok ou NoContent</returns>
         [HttpPost("inserir")]
-        public IActionResult Post([FromBody] Paciente paciente)
+        public IActionResult Criar([FromBody] Paciente paciente)
         {
             try
             {
@@ -68,11 +68,12 @@ namespace Prontuario.Api.Controllers
         /// <param name="paciente"></param>
         /// <returns>Novo objeto modificado</returns>
         [HttpPost("atualizar")]
-        public IActionResult Put([FromBody] Paciente paciente)
+        public IActionResult Atualizar([FromBody] Paciente paciente)
         {
             try
             {
-                service.Put<Paciente>(paciente);
+                var atualizado = _pacienteService.Atualizar(paciente);
+                    service.Put<Paciente>(paciente);
 
                 return new ObjectResult(paciente);
             }
@@ -92,13 +93,19 @@ namespace Prontuario.Api.Controllers
         /// <param name="id">Id do paciente a ser deletado</param>
         /// <returns>No content caso excluir</returns>
         [HttpDelete("deletar/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Deletar(int id)
         {
             try
             {
-                service.Delete(id);
+                var deletado = _pacienteService.Deletar(id);
 
+                if (deletado)
+                {
+                    return new OkResult();
+                }
+                    
                 return new NoContentResult();
+                
             }
             catch (ArgumentException ex)
             {

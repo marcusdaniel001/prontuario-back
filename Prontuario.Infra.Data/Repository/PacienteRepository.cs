@@ -30,6 +30,17 @@ namespace Prontuario.Infra.Data.Repository
             return query.FirstOrDefault();
         }
 
+        public bool Deletar(int id)
+        {
+            var paciente = _contexto.Pacientes.Single(p => p.Id == id);
+
+            if (paciente == null) return false;
+
+            _contexto.Remove(paciente);
+            _contexto.SaveChanges();
+            return true;
+        }
+
         public Paciente BuscarPacientePorId(int id)
         {
             return BuscarTodosPacientes().FirstOrDefault(p => p.Id == id);

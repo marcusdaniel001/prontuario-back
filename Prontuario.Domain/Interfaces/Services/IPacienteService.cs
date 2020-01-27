@@ -5,7 +5,9 @@ namespace Prontuario.Domain.Interfaces.Services
 {
     public interface IPacienteService
     {
-        public bool Criar(Paciente paciente);
+        bool Criar(Paciente paciente);
+        bool Atualizar(Paciente paciente);
+        bool Deletar(int id);
         IEnumerable<Paciente> BuscarTodosPacientes();
         Paciente BuscarPacientePorId(int id);
     }

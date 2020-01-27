@@ -40,9 +40,24 @@ namespace Prontuario.Service.Services
                 }
 
             }
+            else
+            {
+                //verificar se algum usuario tem o msm cpf
+            }
 
             repositoryPaciente.Insert(paciente);
             return true;
+        }
+
+        public bool Atualizar(Paciente paciente)
+        {
+            //Fazer o metodo atualizar que ta sendo o mais chatim
+            return true;
+        }
+
+        public bool Deletar(int id)
+        {
+            return _pacienteRepository.Deletar(id);
         }
 
         public IEnumerable<Paciente> BuscarTodosPacientes()
