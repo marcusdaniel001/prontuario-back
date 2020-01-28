@@ -10,6 +10,7 @@ namespace Prontuario.Service.IoC.Providers.Services
         {
             
             serviceCollection.AddScoped<IPacienteService, PacienteService>();
+            serviceCollection.AddScoped<ILoggerService, LoggerService>();
         }
     }
 }

@@ -13,10 +13,12 @@ namespace Prontuario.Api.Controllers
     {
         private BaseService<Paciente> service = new BaseService<Paciente>();
         private readonly IPacienteService _pacienteService;
+        private readonly ILoggerService _loggerService;
 
-        public PacienteController(IPacienteService pacienteService)
+        public PacienteController(IPacienteService pacienteService, ILoggerService loggerService)
         {
             _pacienteService = pacienteService;
+            _loggerService = loggerService;
         }
 
         /// <summary>
@@ -42,22 +44,12 @@ namespace Prontuario.Api.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                Console.WriteLine("---------------- Mensagem ----------------");
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("");
-                Console.WriteLine("---------------- StackTrace ----------------");
-                Console.WriteLine(ex.StackTrace);
-
+                _loggerService.Informar(ex);
                 return NotFound();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("---------------- Mensagem ----------------");
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("");
-                Console.WriteLine("---------------- StackTrace ----------------");
-                Console.WriteLine(ex.StackTrace);
-
+                _loggerService.Informar(ex);
                 return BadRequest();
             }
         }
@@ -73,17 +65,19 @@ namespace Prontuario.Api.Controllers
             try
             {
                 var atualizado = _pacienteService.Atualizar(paciente);
-                    service.Put<Paciente>(paciente);
+                service.Put<Paciente>(paciente);
 
                 return new ObjectResult(paciente);
             }
             catch (ArgumentNullException ex)
             {
-                return NotFound(ex);
+                _loggerService.Informar(ex);
+                return NotFound();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                _loggerService.Informar(ex);
+                return BadRequest();
             }
         }
 
@@ -109,11 +103,13 @@ namespace Prontuario.Api.Controllers
             }
             catch (ArgumentException ex)
             {
-                return NotFound(ex);
+                _loggerService.Informar(ex);
+                return NotFound();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                _loggerService.Informar(ex);
+                return BadRequest();
             }
         }
 
@@ -137,7 +133,8 @@ namespace Prontuario.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                _loggerService.Informar(ex);
+                return BadRequest();
             }
         }
 
@@ -159,11 +156,13 @@ namespace Prontuario.Api.Controllers
             }
             catch (ArgumentException ex)
             {
-                return NotFound(ex);
+                _loggerService.Informar(ex);
+                return NotFound();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                _loggerService.Informar(ex);
+                return BadRequest();
             }
         }
     }
