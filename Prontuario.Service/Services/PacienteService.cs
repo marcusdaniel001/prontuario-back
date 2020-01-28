@@ -8,8 +8,8 @@ namespace Prontuario.Service.Services
 {
     public class PacienteService : IPacienteService
     {
-        private BaseRepository<Usuario> repositoryUsuario = new BaseRepository<Usuario>();
-        private BaseRepository<Paciente> repositoryPaciente = new BaseRepository<Paciente>();
+        private readonly BaseRepository<Usuario> _repositoryUsuario = new BaseRepository<Usuario>();
+        private readonly BaseRepository<Paciente> _repositoryPaciente = new BaseRepository<Paciente>();
         private readonly IPacienteRepository _pacienteRepository;
 
         public PacienteService(IPacienteRepository pacienteRepository)
@@ -35,7 +35,7 @@ namespace Prontuario.Service.Services
                     pacienteAuxiliar.Senha = paciente.Senha;
                     pacienteAuxiliar.UsuarioId = paciente.Usuario.Id;
 
-                    repositoryPaciente.Insert(pacienteAuxiliar);
+                    _repositoryPaciente.Insert(pacienteAuxiliar);
                     return true;
                 }
 
@@ -45,12 +45,14 @@ namespace Prontuario.Service.Services
                 //verificar se algum usuario tem o msm cpf
             }
 
-            repositoryPaciente.Insert(paciente);
+            _repositoryPaciente.Insert(paciente);
             return true;
         }
 
         public bool Atualizar(Paciente paciente)
         {
+            _repositoryUsuario.Update(paciente.Usuario);
+            _repositoryPaciente.Update(paciente);
             //Fazer o metodo atualizar que ta sendo o mais chatim
             return true;
         }
