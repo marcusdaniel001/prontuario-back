@@ -11,10 +11,12 @@ namespace Prontuario.Service.Services
         private readonly BaseRepository<Usuario> _repositoryUsuario = new BaseRepository<Usuario>();
         private readonly BaseRepository<Paciente> _repositoryPaciente = new BaseRepository<Paciente>();
         private readonly IPacienteRepository _pacienteRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
-        public PacienteService(IPacienteRepository pacienteRepository)
+        public PacienteService(IPacienteRepository pacienteRepository, IUsuarioRepository usuarioRepository)
         {
             _pacienteRepository = pacienteRepository;
+            _usuarioRepository = usuarioRepository;
         }
 
         public bool Criar(Paciente paciente)
@@ -30,19 +32,12 @@ namespace Prontuario.Service.Services
                 {
                     return false;
                 }
-                else
-                {
-                    pacienteAuxiliar.Senha = paciente.Senha;
-                    pacienteAuxiliar.UsuarioId = paciente.Usuario.Id;
 
-                    _repositoryPaciente.Insert(pacienteAuxiliar);
-                    return true;
-                }
+                pacienteAuxiliar.Senha = paciente.Senha;
+                pacienteAuxiliar.UsuarioId = paciente.Usuario.Id;
 
-            }
-            else
-            {
-                //verificar se algum usuario tem o msm cpf
+                _repositoryPaciente.Insert(pacienteAuxiliar);
+                return true;
             }
 
             _repositoryPaciente.Insert(paciente);

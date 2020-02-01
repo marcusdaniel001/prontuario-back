@@ -17,5 +17,7 @@ namespace Prontuario.Domain.Entities
 		public Endereco Endereco { get; set; }
 		public int PlanoSaudeId { get; set; }
 		public PlanoSaude PlanoSaude { get; set; }
+        public int TelefoneId { get; set; }
+        public Telefone Telefone { get; set; }
 	}
 }

@@ -65,9 +65,8 @@ namespace Prontuario.Api.Controllers
             try
             {
                 var atualizado = _pacienteService.Atualizar(paciente);
-                /*service.Put<Paciente>(paciente);*/
-                
-                return new ObjectResult(atualizado);
+
+                return new NoContentResult();
             }
             catch (ArgumentNullException ex)
             {

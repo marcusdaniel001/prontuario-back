@@ -1,53 +1,55 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces.Repositories;
 using Prontuario.Infra.Data.Context;
 
 namespace Prontuario.Infra.Data.Repository
 {
-    public class PacienteRepository : IPacienteRepository
+    public class FaturistaRepository : IFaturistaRepository
     {
         private readonly PostgresContext _contexto;
 
-        public PacienteRepository()
+        public FaturistaRepository()
         {
             _contexto = new PostgresContext();
         }
 
-        public Paciente BuscarPacientePorUsuarioId(int usuarioId)
+        public Faturista BuscarFaturistaPorUsuarioId(int usuarioId)
         {
-            return BuscarTodosPacientes().FirstOrDefault(p => p.Usuario.Id == usuarioId);
+            return BuscarTodosFaturistas().FirstOrDefault(f => f.Usuario.Id == usuarioId);
         }
 
         public bool Deletar(int id)
         {
-            var paciente = _contexto.Pacientes.Single(p => p.Id == id);
+            var faturista = _contexto.Pacientes.Single(f => f.Id == id);
 
-            if (paciente == null) return false;
+            if (faturista == null) return false;
 
-            _contexto.Remove(paciente);
+            _contexto.Remove(faturista);
             _contexto.SaveChanges();
             return true;
         }
 
-        public Paciente BuscarPacientePorId(int id)
+        public Faturista BuscarFaturistaPorId(int id)
         {
-            return BuscarTodosPacientes().FirstOrDefault(p => p.Id == id);
+            return BuscarTodosFaturistas().FirstOrDefault(f => f.Id == id);
         }
 
-        public IEnumerable<Paciente> BuscarTodosPacientes()
+        public IEnumerable<Faturista> BuscarTodosFaturistas()
         {
             var query =
-                from p in _contexto.Pacientes
-                join u in _contexto.Usuarios on p.Usuario.Id equals u.Id
+                from f in _contexto.Faturistas
+                join u in _contexto.Usuarios on f.Usuario.Id equals u.Id
                 join end in _contexto.Enderecos on u.EnderecoId equals end.Id
                 join plan in _contexto.PlanosSaude on u.PlanoSaudeId equals plan.Id
                 join t in _contexto.Telefones on u.TelefoneId equals t.Id
-                select new Paciente
+                select new Faturista
                 {
-                    Id = p.Id,
-                    Senha = p.Senha,
+                    Id = f.Id,
+                    Senha = f.Senha,
                     Usuario = new Usuario
                     {
                         Id = u.Id,
