@@ -6,38 +6,37 @@ using Microsoft.AspNetCore.Mvc;
 using Prontuario.Domain.Entities;
 using Prontuario.Domain.Interfaces.Services;
 using Prontuario.Service.Adapters;
-using Prontuario.Service.Services;
 
 namespace Prontuario.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/faturista")]
-    public class FaturistaController : Controller
+    [Route("api/secretaria")]
+    public class SecretariaController : Controller
     {
-        private readonly IFaturistaService _faturistaService;
+        private readonly ISecretariaService _secretariaService;
         private readonly ILoggerService _loggerService;
 
-        public FaturistaController(IFaturistaService faturistaService, ILoggerService loggerService)
+        public SecretariaController(ISecretariaService secretariaService, ILoggerService loggerService)
         {
-            _faturistaService = faturistaService;
+            _secretariaService = secretariaService;
             _loggerService = loggerService;
         }
 
         /// <summary>
-        /// Metodo utilizado para inserir um faturista novo
+        /// Metodo utilizado para inserir uma secretaria nova
         /// </summary>
-        /// <param name="faturista">Objeto faturista</param>
+        /// <param name="secretaria">Objeto secretaria</param>
         /// <returns>Ok ou NoContent</returns>
         [HttpPost("inserir")]
-        public IActionResult Criar([FromBody] Faturista faturista)
+        public IActionResult Criar([FromBody] Secretaria secretaria)
         {
             try
             {
-                var faturistaBody = faturista;
-                var dataNascimento = DataAdapter.ParseDateTime(faturistaBody.Usuario.DataNascimentoString);
-                faturistaBody.Usuario.DataNascimento = dataNascimento;
+                var secretariaBody = secretaria;
+                var dataNascimento = DataAdapter.ParseDateTime(secretariaBody.Usuario.DataNascimentoString);
+                secretariaBody.Usuario.DataNascimento = dataNascimento;
 
-                var inserido = _faturistaService.Criar(faturistaBody);
+                var inserido = _secretariaService.Criar(secretariaBody);
 
                 if (inserido)
                     return new OkResult();
@@ -52,16 +51,16 @@ namespace Prontuario.Api.Controllers
         }
 
         /// <summary>
-        /// Metodo utilizado para atualizar um faturista
+        /// Metodo utilizado para atualizar um secretaria
         /// </summary>
-        /// <param name="faturista"></param>
+        /// <param name="secretaria"></param>
         /// <returns>Novo objeto modificado</returns>
         [HttpPost("atualizar")]
-        public IActionResult Atualizar([FromBody] Faturista faturista)
+        public IActionResult Atualizar([FromBody] Secretaria secretaria)
         {
             try
             {
-                var atualizado = _faturistaService.Atualizar(faturista);
+                var atualizado = _secretariaService.Atualizar(secretaria);
 
                 return new NoContentResult();
             }
@@ -73,16 +72,16 @@ namespace Prontuario.Api.Controllers
         }
 
         /// <summary>
-        /// Metodo utilizado para Deletar faturistas
+        /// Metodo utilizado para Deletar secretaria
         /// </summary>
-        /// <param name="id">Id do faturista a ser deletado</param>
+        /// <param name="id">Id da secretaria a ser deletado</param>
         /// <returns>ok result caso excluir</returns>
         [HttpDelete("deletar/{id}")]
         public IActionResult Deletar(int id)
         {
             try
             {
-                var deletado = _faturistaService.Deletar(id);
+                var deletado = _secretariaService.Deletar(id);
 
                 if (deletado)
                 {
@@ -100,19 +99,19 @@ namespace Prontuario.Api.Controllers
         }
 
         /// <summary>
-        /// Metodo utilizado para buscar todos os faturistas
+        /// Metodo utilizado para buscar todas as secretarias
         /// </summary>
-        /// <returns>Lista de faturistas com suas dependencias</returns>
+        /// <returns>Lista de secretarias com suas dependencias</returns>
         [HttpGet]
-        public IActionResult BuscarTodosFaturistas()
+        public IActionResult BuscarTodasSecretarias()
         {
             try
             {
-                var faturistas = _faturistaService.BuscarTodosFaturistas();
+                var secretarias = _secretariaService.BuscarTodasSecretarias();
 
-                if (faturistas != null)
+                if (secretarias != null)
                 {
-                    return new JsonResult(faturistas);
+                    return new JsonResult(secretarias);
                 }
 
                 return new NoContentResult();
@@ -125,19 +124,19 @@ namespace Prontuario.Api.Controllers
         }
 
         /// <summary>
-        /// Metodo responsavel por buscar o faturista pelo Id do mesmo
+        /// Metodo responsavel por buscar a secretaria pelo Id do mesmo
         /// </summary>
-        /// <param name="id">Id do faturista</param>
-        /// <returns>Entidade de faturista encontrada no banco</returns>
+        /// <param name="id">Id da secretaria</param>
+        /// <returns>Entidade de secretaria encontrada no banco</returns>
         [HttpGet("{id}")]
-        public IActionResult BuscarFaturistaPorId(int id)
+        public IActionResult BuscarSecretariaPorId(int id)
         {
             try
             {
-                var faturista = _faturistaService.BuscarFaturistaPorId(id);
-                if (faturista.Id == 0) return new NoContentResult();
+                var secretaria = _secretariaService.BuscarSecretariaPorId(id);
+                if (secretaria.Id == 0) return new NoContentResult();
 
-                return new JsonResult(faturista);
+                return new JsonResult(secretaria);
 
             }
             catch (Exception ex)

@@ -11,7 +11,6 @@ namespace Prontuario.Api.Controllers
     [Route("api/paciente")]
     public class PacienteController : Controller
     {
-        private BaseService<Paciente> service = new BaseService<Paciente>();
         private readonly IPacienteService _pacienteService;
         private readonly ILoggerService _loggerService;
 
@@ -42,11 +41,6 @@ namespace Prontuario.Api.Controllers
                 
                 return new NoContentResult();
             }
-            catch (ArgumentNullException ex)
-            {
-                _loggerService.Informar(ex);
-                return NotFound();
-            }
             catch (Exception ex)
             {
                 _loggerService.Informar(ex);
@@ -67,11 +61,6 @@ namespace Prontuario.Api.Controllers
                 var atualizado = _pacienteService.Atualizar(paciente);
 
                 return new NoContentResult();
-            }
-            catch (ArgumentNullException ex)
-            {
-                _loggerService.Informar(ex);
-                return NotFound();
             }
             catch (Exception ex)
             {
@@ -99,11 +88,6 @@ namespace Prontuario.Api.Controllers
                     
                 return new NoContentResult();
                 
-            }
-            catch (ArgumentException ex)
-            {
-                _loggerService.Informar(ex);
-                return NotFound();
             }
             catch (Exception ex)
             {
@@ -152,11 +136,6 @@ namespace Prontuario.Api.Controllers
 
                 return new JsonResult(paciente);
 
-            }
-            catch (ArgumentException ex)
-            {
-                _loggerService.Informar(ex);
-                return NotFound();
             }
             catch (Exception ex)
             {
