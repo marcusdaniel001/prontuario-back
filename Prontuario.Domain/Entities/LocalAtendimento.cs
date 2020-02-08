@@ -1,4 +1,6 @@
-﻿namespace Prontuario.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Prontuario.Domain.Entities
 {
     public class LocalAtendimento : BaseEntity
     {
@@ -7,6 +9,6 @@
         public int EnderecoId { get; set; }
         public Endereco Endereco { get; set; }
         public int TelefoneId { get; set; }
-        public Telefone Telefone { get; set; }
+        public IEnumerable<Telefone> Telefone { get; set; }
     }
 }

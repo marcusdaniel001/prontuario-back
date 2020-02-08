@@ -9,9 +9,11 @@ namespace Prontuario.Service.IoC.Providers.Services
         public static void Registro(IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IFaturistaService, FaturistaService>();
+            serviceCollection.AddScoped<ILocalAtendimentoService, LocalAtendimentoService>();
+            serviceCollection.AddScoped<ILoggerService, LoggerService>();
             serviceCollection.AddScoped<IPacienteService, PacienteService>();
             serviceCollection.AddScoped<ISecretariaService, SecretariaService>();
-            serviceCollection.AddScoped<ILoggerService, LoggerService>();
+            serviceCollection.AddScoped<IUsuarioService, UsuarioService>();
         }
     }
 }

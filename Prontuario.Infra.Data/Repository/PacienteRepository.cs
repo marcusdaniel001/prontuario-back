@@ -51,6 +51,7 @@ namespace Prontuario.Infra.Data.Repository
                     Usuario = new Usuario
                     {
                         Id = u.Id,
+                        Nome = u.Nome,
                         Cpf = u.Cpf,
                         DataNascimento = u.DataNascimento,
                         Sexo = u.Sexo,

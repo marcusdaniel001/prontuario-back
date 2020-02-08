@@ -24,7 +24,7 @@ namespace Prontuario.Infra.Data.Repository
 
         public bool Deletar(int id)
         {
-            var secretaria = _contexto.Secretarias.Single(p => p.Id == id);
+            var secretaria = _contexto.Secretarias.Single(s => s.Id == id);
 
             if (secretaria == null) return false;
 
@@ -46,6 +46,9 @@ namespace Prontuario.Infra.Data.Repository
                 join end in _contexto.Enderecos on u.EnderecoId equals end.Id
                 join plan in _contexto.PlanosSaude on u.PlanoSaudeId equals plan.Id
                 join t in _contexto.Telefones on u.TelefoneId equals t.Id
+                join l in _contexto.LocalAtendimentos on s.LocalAtendimentoId equals l.Id
+                join endL in _contexto.Enderecos on l.EnderecoId equals endL.Id
+                join telL in _contexto.Telefones on l.TelefoneId equals telL.Id
                 select new Secretaria
                 {
                     Id = s.Id,
@@ -81,6 +84,28 @@ namespace Prontuario.Infra.Data.Repository
                             Id = t.Id,
                             Numero = t.Numero
                         }
+                    },
+                    LocalAtendimento = new LocalAtendimento
+                    {
+                        Id = l.Id,
+                        Nome = l.Nome,
+                        Endereco = new Endereco
+                        {
+                            Id = endL.Id,
+                            Rua = endL.Rua,
+                            Numero = endL.Numero,
+                            Complemento = endL.Complemento,
+                            Bairro = endL.Bairro,
+                            Cidade = endL.Cidade,
+                            Estado = endL.Estado,
+                            Pais = endL.Pais,
+                            Cep = endL.Cep
+                        },
+                        Telefone = new List<Telefone>
+                        {
+                            telL
+                        }
+
                     }
                 };
 

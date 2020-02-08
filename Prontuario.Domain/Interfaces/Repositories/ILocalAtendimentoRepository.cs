@@ -5,11 +5,10 @@ using Prontuario.Domain.Entities;
 
 namespace Prontuario.Domain.Interfaces.Repositories
 {
-    public interface IUsuarioRepository
+    public interface ILocalAtendimentoRepository
     {
-        Usuario BuscarUsuarioPorCpf(string cpf);
         bool Deletar(int id);
-        IEnumerable<Usuario> BuscarTodosUsuarios();
-        Usuario BuscarUsuarioPorId(int id);
+        IEnumerable<LocalAtendimento> BuscarTodosLocaisAtendimentos();
+        LocalAtendimento BuscarLocalAtendimentoPorId(int id);
     }
 }

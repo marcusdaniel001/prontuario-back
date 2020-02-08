@@ -19,14 +19,36 @@ namespace Prontuario.Infra.Data.Repository
 
         public Usuario BuscarUsuarioPorCpf(string cpf)
         {
-            var query = from u in _contexto.Usuarios
+            return BuscarTodosUsuarios().FirstOrDefault(u => u.Cpf == cpf);
+        }
+
+        public bool Deletar(int id)
+        {
+            var usuario = _contexto.Usuarios.Single(u => u.Id == id);
+
+            if (usuario == null) return false;
+
+            _contexto.Remove(usuario);
+            _contexto.SaveChanges();
+            return true;
+        }
+
+        public Usuario BuscarUsuarioPorId(int id)
+        {
+            return BuscarTodosUsuarios().FirstOrDefault(u => u.Id == id);
+        }
+
+        public IEnumerable<Usuario> BuscarTodosUsuarios()
+        {
+            var query =
+                from u in _contexto.Usuarios
                 join end in _contexto.Enderecos on u.EnderecoId equals end.Id
                 join plan in _contexto.PlanosSaude on u.PlanoSaudeId equals plan.Id
                 join t in _contexto.Telefones on u.TelefoneId equals t.Id
-                where u.Cpf == cpf
                 select new Usuario
                 {
                     Id = u.Id,
+                    Nome = u.Nome,
                     Cpf = u.Cpf,
                     DataNascimento = u.DataNascimento,
                     Sexo = u.Sexo,
@@ -57,7 +79,7 @@ namespace Prontuario.Infra.Data.Repository
                     }
                 };
 
-            return query.FirstOrDefault();
+            return query;
         }
     }
 }
