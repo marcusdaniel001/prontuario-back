@@ -101,9 +101,10 @@ namespace Prontuario.Infra.Data.Repository
                             Pais = endL.Pais,
                             Cep = endL.Cep
                         },
-                        Telefone = new List<Telefone>
+                        Telefone = new Telefone
                         {
-                            telL
+                            Id = telL.Id,
+                            Numero = telL.Numero
                         }
 
                     }

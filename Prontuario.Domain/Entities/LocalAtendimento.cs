@@ -9,6 +9,6 @@ namespace Prontuario.Domain.Entities
         public int EnderecoId { get; set; }
         public Endereco Endereco { get; set; }
         public int TelefoneId { get; set; }
-        public IEnumerable<Telefone> Telefone { get; set; }
+        public Telefone Telefone { get; set; }
     }
 }

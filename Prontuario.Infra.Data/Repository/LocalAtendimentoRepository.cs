@@ -55,7 +55,11 @@ namespace Prontuario.Infra.Data.Repository
                         Pais = end.Pais,
                         Cep = end.Cep
                     },
-                    Telefone = new List<Telefone> { tel }
+                    Telefone = new Telefone
+                    {
+                        Id = tel.Id,
+                        Numero = tel.Numero
+                    }
                 };
 
             return query;
