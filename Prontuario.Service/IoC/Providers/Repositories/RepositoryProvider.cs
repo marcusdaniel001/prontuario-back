@@ -8,6 +8,7 @@ namespace Prontuario.Service.IoC.Providers.Repositories
     {
         public static void Registro(IServiceCollection serviceCollection)
         {
+            serviceCollection.AddScoped<IAgendaRepository, AgendaRepository>();
             serviceCollection.AddScoped<IFaturistaRepository, FaturistaRepository>();
             serviceCollection.AddScoped<ILocalAtendimentoRepository, LocalAtendimentoRepository>();
             serviceCollection.AddScoped<IPacienteRepository, PacienteRepository>();

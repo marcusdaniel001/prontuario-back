@@ -8,6 +8,7 @@ namespace Prontuario.Service.IoC.Providers.Services
     {
         public static void Registro(IServiceCollection serviceCollection)
         {
+            serviceCollection.AddScoped<IAgendaService, AgendaService>();
             serviceCollection.AddScoped<IFaturistaService, FaturistaService>();
             serviceCollection.AddScoped<ILocalAtendimentoService, LocalAtendimentoService>();
             serviceCollection.AddScoped<ILoggerService, LoggerService>();
